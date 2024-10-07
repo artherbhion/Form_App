@@ -1,43 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Data Form</title>
+  <style>
+    /* Add some basic styling */
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+    }
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    .form-container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+    .form input {
+      display: block;
+      margin-bottom: 15px;
+      padding: 10px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+    .form input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+    }
+
+    .form input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    h1 {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h1>USER DATA FORM</h1>
+    <div>
+      <form class="form" id="userForm">
+        <input placeholder="Enter Name" name="Name" type="text" required />
+        <input placeholder="Enter Email" name="Email" type="email" required />
+        <input placeholder="Enter Address" name="Message" type="text" required />
+        <input placeholder="Enter Phone Number" name="Phone" type="text" required />
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('userForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+      const formEle = document.querySelector("form");
+      const formData = new FormData(formEle);
+
+      alert("Form is being submitted...");
+
+      fetch("https://script.google.com/macros/s/AKfycbzBHewgidZ5kM1QM1To8WCFCAWV-n3ScLfEg2ZjKgFFepqZ0AOpNyjvHZJk3PzF56J9WQ/exec", {
+        method: "POST",
+        body: formData,
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        alert("Form submitted successfully!");
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("Error submitting the form, please try again.");
+      });
+    });
+  </script>
+
+</body>
 </html>
